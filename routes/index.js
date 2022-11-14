@@ -168,40 +168,50 @@ router.get("/logout", (req, res) => {
   res.redirect('/')
 })
 
-router.get('/addqty/:id', (req, res) => {
-  var id = req.params.id;
-  var userid = req.session.user.id;
-  var sql = "select * from cart where userid = ? and productid =?"
-  con.query(sql,[userid, id],(err, row)=>{
-    if(err){
-      console.log(err)
-    } else {
-      var fqty = row[0].qty;
-      var newqty = fqty+1;
-      var sql2 = "update cart set qty =? where productid =? and userid = ?"
-      con.query(sql2,[newqty,id,userid],(err, result)=>{
-        if (err) {
-          console.log(err)
+
+  
+  router.get('/addqty/:id',(req, res)=>{
+    var id =req.params.id;
+    var userid =req.session.user.id;
+    var sql = "select * from cart where id = ? and userid =?"
+    con.query(sql, [id,userid], (err,row)=>{
+      if(err){
+        console.log(err)
+      }else{
+        var fqty = row[0].qty;
+        if(newqty==0){
+          newqty=1;
+        }else{
+          var newqty = fqty+1;
         }
-        else {
-          res.redirect('/mycart')
-        }
-      })
-    } 
-  })
-  });
+
+       
+        var sql2 = "update cart set qty =? where id =? and userid = ?"}
+        con.query(sql2, [newqty,id,userid], (err, result) => {
+          if (err) {
+            console.log(err)
+          }
+          else {
+            res.redirect('/mycart')
+          }
+        })
+      } )
+    });
   
 router.get('/subqty/:id',(req, res)=>{
   var id =req.params.id;
   var userid =req.session.user.id;
-  var sql = "select * from cart where userid = ? and productid =?"
+  var sql = "select * from cart where userid = ? and id =?"
   con.query(sql, [userid, id], (err,row)=>{
     if(err){
       console.log(err)
     }else{
       var fqty = row[0].qty;
       var newqty = fqty-1;
-      var sql2 = "update cart set qty =? where productid =? userid = ?"}
+      if(newqty==0){
+        newqty=1;
+      }
+      var sql2 = "update cart set qty =? where id =? and userid = ?"}
       con.query(sql2, [newqty,id,userid], (err, result) => {
         if (err) {
           console.log(err)
@@ -213,7 +223,18 @@ router.get('/subqty/:id',(req, res)=>{
     } )
   });
 
-router.get("/remove/:Id")
+router.get("/remove/:Id",(req,res)=>{
+  let id=req.params.Id;
+  console.log(id)
+  var sql = "delete from cart where id = ?";
+  con.query(sql,[id],(err,row)=>{
+    if(err){
+      console.log(err)
+    }else{
+      res.redirect("/mycart")
+    }
+  })
+})
 
   module.exports = router;
   
