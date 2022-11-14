@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+<body>
+  <style>
+    .container-fluid{
+      background-color:whitesmoke;
+      margin: auto;
+      width: 500px;
+      height: 600px;
+      text-align: center;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+      
+     
+    }
+
+    input {
+      width: 60%;
+      height: 30px;
+      padding: 10px;
+      text-align: center;
+      border: black;
+      background: #f1f1f1;
+      margin: 5px 0 22px 0;
+      border-radius: 30%;
+      font-family: fantasy;
+      
+     
+    }
+ 
+    .registerbtn {
+      background-color: #d239e7;
+      color: rgb(14, 14, 14);
+      padding: 16px 20px;
+     border: black;
+      width: 30%;
+      opacity: 0.9;
+      border-radius: 20%;
+      display:inline-block;
+      margin-right: 10px;
+    }
+
+    h1 {
+      font-size: xx-large;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      color:black;
+      text-align: center;
+      padding-top: 50px;
+    }
+  </style>
+
+  <div class="bg-img">
+    <form action="/Regdata" method="post">
+
+
+      <div class="container-fluid shadow-lg p-3 mb-5 bg-white rounded">
+        <h1>Register</h1>
+
+        <input type="text" placeholder=" username" name="name">
+
+        <input type="email" placeholder="mail id" name="email">
+
+        <input type="text" placeholder="mobile no" name="mobile">
+
+        <input type="password" placeholder="password" name="password"><br><br><br>
+
+        {{!-- <input type="password" placeholder="Repeat Password" name="psrepeat" id="psw-repeat"> --}}
+
+        <input type="submit" value="register" class="registerbtn">
+        {{!-- <button type="submit" class="registerbtn">Register</button> --}}
+
+      </div>
+
+    </form>
+  </div>
+
+
+
+
+
+</body>
+
+</html>
