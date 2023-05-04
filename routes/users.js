@@ -7,9 +7,9 @@ router.get('/', function (req, res, next) {
   res.render('admin/adminlogin');
 });
 router.get("/adminhome",(req,res)=>{
-  if(req.session.admin){
+
     res.render("admin/adminHome")
-  }
+  
 })
 router.post('/adminlogin', (req, res) => {
   console.log(req.body.email)
@@ -22,7 +22,7 @@ router.post('/adminlogin', (req, res) => {
   }
   if (mail == req.body.email && pass == req.body.psw) {
     console.log("login success")
-    req.session.admin=admindata;
+    // req.session.admin=admindata;
     res.redirect("/users/adminhome")
   }
   else {
@@ -62,4 +62,18 @@ router.post('/addproduct', (req, res) => {
     console.log('uploading error')
   }
 })
-module.exports = router;
+router.get('/orderd',(req,res)=>{
+  var sql="select products.id,products.name,products.price,cart.id,cart.userid,cart.qty from products inner join cart on products.id =cart.products.id where  cart.status ='purchased'";
+  let user= req.session.user;
+  con.query(sql,(err,result)=>{
+    if(err){
+      console.log(err)
+
+    }else{
+      console.log("my order",result)
+      res.render('admin/orderd',{result})
+    }
+  })
+  res.render('admin/orderd')
+})
+module.exports = router; 

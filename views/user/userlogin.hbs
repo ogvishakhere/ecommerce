@@ -26,13 +26,7 @@
       
     }
 
-    .bg-img {
-      background-image: url("https://t3.ftcdn.net/jpg/01/17/33/22/360_F_117332203_ekwDZkViF6M3itApEFRIH4844XjJ7zEb.jpg");
-      height: 600px;
-      position: relative;
-      background-position: center;
-
-    }
+    
 
     .container-fluid {
       text-align: center;
@@ -59,12 +53,16 @@
       display:inline-block;
       margin-right: 10px;
     }
+    body {
+  background-image: url('https://t3.ftcdn.net/jpg/01/17/33/22/360_F_117332203_ekwDZkViF6M3itApEFRIH4844XjJ7zEb.jpg');
+  background-size: cover;
+}
   </style>
 </head>
 
 <body>
   
-  <div class="bg-img">
+  {{!-- <div class="bg-img"> --}}
     <form action="/Logdata" method="post">
 
       <div class="container-fluid">
@@ -82,7 +80,7 @@
 
 
     </form>
-  </div>
+  {{!-- </div> --}}
 </body>
 
 </html>

@@ -7,8 +7,12 @@ var con = mysql.createConnection({
   
   });
   con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
+    if (err){
+      console.log(err)
+    }else{
+      console.log("MISSION SUCCESS");
+    }
   });
+
   module.exports=con;
-  
+   

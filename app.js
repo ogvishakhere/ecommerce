@@ -3,45 +3,40 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const hbs = require('hbs');
-
+var session=require('express-session');
+const hbs=require('hbs');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const session = require('express-session');
-const fileupload = require('express-fileupload')
-var con = require("./config/config")
+const fileUpload = require("express-fileupload")
 
 var app = express();
 
+app.use(fileUpload());
+
+var con = require('./config/config')
+var Razorpay = require('razorpay');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+hbs.registerPartials(__dirname + '/views/partial')
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser())
-app.use(fileupload());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.all('/*',(req,res,next)=>{
-  req.app.locals.layout = "layout/userlayout"
-  next();
-})
-app.all('/users*',(req,res,next)=>{
-  req.app.locals.layout = "layout/adminlayout"
-  next();
-})
-app.use(session({secret:'keyboardcat',cookie:{ maxAge: 6000000}}))
+app.use(session({
+  secret:'keyboardCat',
+  resave:false,
+  saveUninitialized:true,
+  cookie:{maxAge:600000}
+}))
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-
-hbs.registerPartials(__dirname + "/views/partial");
-app.use('/',indexRouter);
-app.use('/users',usersRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
